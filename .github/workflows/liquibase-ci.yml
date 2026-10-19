@@ -1,0 +1,52 @@
+
+name: Liquibase CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-migrations:
+    runs-on: ubuntu-latest
+
+    env:
+      LIQUIBASE_COMMAND_URL: ${{ secrets.DATABRICKS_JDBC_URL }}
+      LIQUIBASE_COMMAND_USERNAME: token
+      LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.DATABRICKS_TOKEN }}
+      LIQUIBASE_COMMAND_CHANGELOG_FILE: changelog/db.changelog-master.yaml
+      LIQUIBASE_LIQUIBASE_SCHEMA_NAME: bronze
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Instalar Liquibase 5.0.4
+        uses: liquibase/setup-liquibase@v3
+        with:
+          version: '5.0.4'
+          edition: community
+
+      - name: Instalar dependencias Databricks
+        run: |
+          liquibase lpm add liquibase-databricks
+          liquibase lpm add databricks-jdbc
+
+      - name: Validar migraciones
+        run: liquibase validate
+
+      - name: Consultar migraciones pendientes
+        run: liquibase status --verbose
+
+      - name: Revisar SQL generado
+        run: liquibase update-sql
