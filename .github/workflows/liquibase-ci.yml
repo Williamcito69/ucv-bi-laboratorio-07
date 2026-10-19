@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      LIQUIBASE_COMMAND_DRIVER: com.databricks.client.jdbc.Driver
       LIQUIBASE_COMMAND_URL: ${{ secrets.DATABRICKS_JDBC_URL }}
       LIQUIBASE_COMMAND_USERNAME: token
       LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.DATABRICKS_TOKEN }}
