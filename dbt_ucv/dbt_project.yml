@@ -1,0 +1,19 @@
+
+name: 'ucv'
+version: '1.0.0'
+config-version: 2
+
+profile: 'ucv'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+models:
+  ucv:
+    staging:
+      +materialized: view
+      +schema: silver
+
+    marts:
+      +materialized: table
+      +schema: gold

@@ -1,0 +1,17 @@
+
+databaseChangeLog:
+  - include:
+      file: changes/001_create_sales_raw.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/002_create_products_raw.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/010_create_customers_raw.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/011_create_stores_raw.sql
+      relativeToChangelogFile: true

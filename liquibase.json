@@ -1,0 +1,10 @@
+{
+ "dependencies": [
+  {
+   "liquibase-databricks": "5.0.3"
+  },
+  {
+   "databricks-jdbc": "3.4.2"
+  }
+ ]
+}

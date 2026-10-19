@@ -1,0 +1,8 @@
+
+changeLogFile=changelog/db.changelog-master.yaml
+
+driver=com.databricks.client.jdbc.Driver
+
+url=jdbc:databricks://TU_HOSTNAME:443/default;httpPath=TU_HTTP_PATH;AuthMech=3;UID=token;PWD=TU_TOKEN
+
+liquibaseSchemaName=bronze
